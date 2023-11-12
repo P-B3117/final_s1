@@ -16,5 +16,6 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 }
 
 void loop() {
+  vitesse_random(VITESSEMIN,VITESSEMAX);
  
 }
