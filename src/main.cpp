@@ -19,5 +19,6 @@ void loop() {
 //Serial.println(SONAR_GetRange(1)); 
 //Serial.println(SONAR_GetRange(0)); 
 //delay(100);
+bluetoothLoop();
 
 }                         
