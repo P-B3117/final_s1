@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <libRobus.h>
 #include "algorithme.h"
+
+
 int joueur1;//niveau premier joueur
 int joueur2;//niveau deuxieme joueur
 float vitesse;
@@ -11,11 +13,15 @@ float currentMillis;
 long startTime;
 long duration = 1000;
 int tour_joueur=1;
+
+
 void algoInit()
 {
     
     long startTime = millis();
 }
+
+
 void algo(){
     //condition pour savoir le case
 

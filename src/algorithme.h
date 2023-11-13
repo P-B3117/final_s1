@@ -1,6 +1,8 @@
 #pragma once
+
 //ne pas mettre vos librairies ici mettez les dans le .cpp sinon on vas avoir des conflits de librairies
 //variables globale
+
 #define SEUL 1
 #define MULTIJOUEUR 2
 #define TEMPS 10000
