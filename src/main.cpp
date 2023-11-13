@@ -16,6 +16,8 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 }
 
 void loop() {
-  vitesse_random(VITESSEMIN,VITESSEMAX);
- 
-}
+//Serial.println(SONAR_GetRange(1)); 
+//Serial.println(SONAR_GetRange(0)); 
+//delay(100);
+
+}                         
