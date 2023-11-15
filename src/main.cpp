@@ -5,20 +5,22 @@
 #include "panier.h"
 #include "algorithme.h"
 
+ char msg[]="hello";
 
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
   BoardInit();
   Serial.begin(9600);
-  bluetoothInit();
+  //bluetoothInit();
   suiveurInit();
   panierInit();
   algoInit();
+  BluetoothInit();//librobus
+ 
 }
 
 void loop() {
-//Serial.println(SONAR_GetRange(1)); 
-//Serial.println(SONAR_GetRange(0)); 
-//delay(100);
-bluetoothLoop();
-
+//BLUETOOTH_readCallback();
+//Serial.println(BlUETOOTH_MSG);
+BLUETOOTH_println(msg);
+BLUETOOTH_readCallback();
 }                         

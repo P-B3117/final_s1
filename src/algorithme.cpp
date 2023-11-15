@@ -38,7 +38,7 @@ void algo(){
             //suiveurligne(0);
             MOTOR_SetSpeed(LEFT,0);
             MOTOR_SetSpeed(RIGHT,0);
-            delay(TEMPS);
+            delay(TEMPS);//changer millis
             }
         }
             mode=STOP;
