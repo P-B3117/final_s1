@@ -21,6 +21,12 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 void loop() {
 //BLUETOOTH_readCallback();
 //Serial.println(BlUETOOTH_MSG);
-BLUETOOTH_println(msg);
-BLUETOOTH_readCallback();
+//Serial.print("yo");
+suiveur_ligne();
+//delay(200);
+ //Serial.print(digitalRead(  45));
+//  Serial.print(digitalRead(  49));
+//  Serial.print(digitalRead(  48));
+//  Serial.print(digitalRead(  47));
+//  Serial.println(digitalRead(46));
 }                         

@@ -9,7 +9,9 @@
 #define STOP 4
 #define VITESSEMAX 4
 #define VITESSEMIN 1
+//suiveur ligne
 
 
 void vitesse_random(int vitesse_min,int vitesse_max);
 void algoInit();
+void suiveur_ligne();
