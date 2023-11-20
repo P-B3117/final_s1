@@ -12,6 +12,6 @@
 //suiveur ligne
 
 
-void vitesse_random(int vitesse_min,int vitesse_max);
+float vitesse_random(int vitesse_min,int vitesse_max);
 void algoInit();
-void suiveur_ligne();
+void suiveur_ligne(float vitesse);

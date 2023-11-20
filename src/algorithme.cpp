@@ -5,7 +5,6 @@
 
 int joueur1;//niveau premier joueur
 int joueur2;//niveau deuxieme joueur
-float vitesse=0.15;
 int mode;//un ou deux joueur
 int niveau;
 int i;
@@ -16,7 +15,7 @@ int tour_joueur=1;
 //suiveur ligne
 bool extreme_gauche=digitalRead(53);
 bool gauche=digitalRead(52);
-bool moyen_gauche=digitalRead(51);
+bool moyen_gauche=digitalRead(51);  
 bool centre_gauche=digitalRead(45);
 bool centre_droite=digitalRead(49);
 bool moyen_droite=digitalRead(48);
@@ -39,7 +38,7 @@ void algoInit()
 }
 
 
-void algo(){
+/*void algo(){
     //condition pour savoir le case
 
 
@@ -174,13 +173,13 @@ void algo(){
     break;
     }
 return;
-}
+}*/
 
 
 
-void vitesse_random(int vitesse_min,int vitesse_max){
+float vitesse_random(int vitesse_min,int vitesse_max){
     long currentTime = millis();
-
+    float vitesse;
   // Calculate the elapsed time since the timer started
   long elapsedTime = currentTime - startTime;
 
@@ -191,11 +190,11 @@ void vitesse_random(int vitesse_min,int vitesse_max){
     // Reset the timer for the next iteration
     startTime = millis();
   }
-
+    return vitesse;
 }
 
 
-void suiveur_ligne(){
+void suiveur_ligne(float vitesse){
     extreme_gauche=digitalRead(53);
     gauche=digitalRead(52);
     moyen_gauche=digitalRead(51);

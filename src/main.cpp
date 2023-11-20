@@ -22,7 +22,7 @@ void loop() {
 //BLUETOOTH_readCallback();
 //Serial.println(BlUETOOTH_MSG);
 //Serial.print("yo");
-suiveur_ligne();
+suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
 //delay(200);
  //Serial.print(digitalRead(  45));
 //  Serial.print(digitalRead(  49));
