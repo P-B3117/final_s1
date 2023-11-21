@@ -38,7 +38,7 @@ void algoInit()
 }
 
 
-/*void algo(){
+void algo(){
     //condition pour savoir le case
 
 
@@ -47,9 +47,8 @@ void algoInit()
         switch (niveau){
         case 1:
         for(i=0; i<5;i++){
-            //suiveurligne(vitesse);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(VITESSE);
+           
             if(1){//detection ligne = 1pour live ou bloc
             //suiveurligne(0);
             MOTOR_SetSpeed(LEFT,0);
@@ -65,9 +64,8 @@ void algoInit()
         case 2:
         i=0;
         while(i<5){
-            //suiveurligne(vitesse);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(VITESSE);
+            
             if (1){//detectection incémentation
                 i++;
             }
@@ -80,10 +78,8 @@ void algoInit()
         case 3:
         i=0;
         while(i<5){
-            //suiveurligne(vitesse);
-            vitesse_random(VITESSEMIN,VITESSEMAX);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
+           
             if (1){//detectection incémentation
                 i++;
             }
@@ -106,9 +102,8 @@ void algoInit()
     switch (niveau){
         case 1:
         for(i=0; i<5;i++){
-            //suiveurligne(vitesse);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(VITESSE);
+            
             if(1){//detection ligne = 1pour live ou bloc
             //suiveurligne(0);
             MOTOR_SetSpeed(LEFT,0);
@@ -129,9 +124,7 @@ void algoInit()
 
         case 2: i=0;
         while(i<5){
-            //suiveurligne(vitesse);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(VITESSE);
             if (1){//detectection incémentation
                 i++;
             }
@@ -153,10 +146,9 @@ void algoInit()
         case 3:
         i=0;
         while(i<5){
-            //suiveurligne(vitesse);
-            vitesse_random(VITESSEMIN,VITESSEMAX);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            MOTOR_SetSpeed(RIGHT,vitesse);
+            suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
+            
+            
             if (1){//detectection incémentation
                 i++;
             }
@@ -173,7 +165,7 @@ void algoInit()
     break;
     }
 return;
-}*/
+}
 
 
 
@@ -235,16 +227,16 @@ void suiveur_ligne(float vitesse){
     }
     else if(centre_droite==0||centre_gauche==0){
         while(centre_droite==0||centre_gauche==0){
- extreme_gauche=digitalRead(53);
-    gauche=digitalRead(52);
-    moyen_gauche=digitalRead(51);
-    centre_gauche=digitalRead(45);
-    centre_droite=digitalRead(49);
-    moyen_droite=digitalRead(48);
-    droite=digitalRead(47);
-         MOTOR_SetSpeed(RIGHT,vitesse);
-         MOTOR_SetSpeed(LEFT,vitesse);
-         Serial.println("tout droit");
+            extreme_gauche=digitalRead(53);
+            gauche=digitalRead(52);
+            moyen_gauche=digitalRead(51);
+            centre_gauche=digitalRead(45);
+            centre_droite=digitalRead(49);
+            moyen_droite=digitalRead(48);
+            droite=digitalRead(47);
+            MOTOR_SetSpeed(RIGHT,vitesse);
+            MOTOR_SetSpeed(LEFT,vitesse);
+             Serial.println("tout droit");
          }
         
      }
@@ -265,16 +257,16 @@ void suiveur_ligne(float vitesse){
     }
      else if((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
           while((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
-              extreme_gauche=digitalRead(53);
-             gauche=digitalRead(52);
-             moyen_gauche=digitalRead(51);
-             centre_gauche=digitalRead(45);
-             centre_droite=digitalRead(49);
-             moyen_droite=digitalRead(48);
-             droite=digitalRead(47);
-             MOTOR_SetSpeed(RIGHT,vitesse);
-             MOTOR_SetSpeed(LEFT,0);
-             Serial.println("tourne droite");
+                extreme_gauche=digitalRead(53);
+                gauche=digitalRead(52);
+                moyen_gauche=digitalRead(51);
+                centre_gauche=digitalRead(45);
+                centre_droite=digitalRead(49);
+                moyen_droite=digitalRead(48);
+                droite=digitalRead(47);
+                MOTOR_SetSpeed(RIGHT,vitesse);
+                MOTOR_SetSpeed(LEFT,0);
+                Serial.println("tourne droite");
           }
       
      }

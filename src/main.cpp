@@ -19,14 +19,7 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 }
 
 void loop() {
-//BLUETOOTH_readCallback();
-//Serial.println(BlUETOOTH_MSG);
-//Serial.print("yo");
-suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-//delay(200);
- //Serial.print(digitalRead(  45));
-//  Serial.print(digitalRead(  49));
-//  Serial.print(digitalRead(  48));
-//  Serial.print(digitalRead(  47));
-//  Serial.println(digitalRead(46));
+
+//suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
+
 }                         

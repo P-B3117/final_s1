@@ -9,6 +9,8 @@
 #define STOP 4
 #define VITESSEMAX 4
 #define VITESSEMIN 1
+#define VITESSE 0.2
+
 //suiveur ligne
 
 
