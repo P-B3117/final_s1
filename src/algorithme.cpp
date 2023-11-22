@@ -187,6 +187,7 @@ float vitesse_random(int vitesse_min,int vitesse_max){
 
 
 void suiveur_ligne(float vitesse){
+
     extreme_gauche=digitalRead(53);
     gauche=digitalRead(52);
     moyen_gauche=digitalRead(51);
@@ -273,3 +274,5 @@ void suiveur_ligne(float vitesse){
     
     
 }
+
+
