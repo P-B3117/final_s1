@@ -14,12 +14,11 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   panierInit();
   algoInit();
   BluetoothInit();//librobus
- 
+ while(jeux()!=1);
 }
 
 void loop() {
-jeux();
-//algo();
+algo();
 //suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
 
 }                         

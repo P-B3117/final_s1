@@ -55,7 +55,7 @@ void algo(){
         for(i=0; i<5;i++){
             suiveur_ligne(VITESSE);
            
-            if(1){//detection ligne = 1pour live ou bloc
+            if(ROBUS_IsBumper(3)==true){//detection ligne = 1pour live ou bloc
             //suiveurligne(0);
             MOTOR_SetSpeed(LEFT,0);
             MOTOR_SetSpeed(RIGHT,0);
@@ -82,19 +82,21 @@ void algo(){
 
 
 
-          case 3:
-           Serial.println("seul niveau 3");
-          i=0;
-          while(i<5){
-              suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-           
-               if (1){//detectection incémentation
-                  i++;
-               }
-          }
-          mode=STOP;
+        //   case 3:
+        //    Serial.println("seul niveau 3");
+        //   i=0;
+        //   while(i<5){
+        //   float vitesse=vitesse_random(VITESSEMIN,VITESSEMAX);
+        //   Serial.println(vitesse);
+        //   suiveur_ligne(vitesse);
+         
+              
+        // }
+            
+        //   Serial.println("fin seul niveau 3");
+        //   //mode=STOP;
 
-        //  break;
+        //   break;
         
         case STOP:
         MOTOR_SetSpeed(LEFT,0);
@@ -163,7 +165,7 @@ void algo(){
             
             
             if (1){//detectection incémentation
-                i++;
+                //i++;
             }
         }
         if(tour_joueur==2){
@@ -291,41 +293,48 @@ void suiveur_ligne(float vitesse){
 
 
 
-void jeux(){
+bool jeux(){
     if(digitalRead(22)==HIGH){//facile 1 joueur
         mode=SEUL;
         niveau=1;
         Serial.println("seul 1");
+        return 1;
     }
     if(digitalRead(23)==HIGH){
         mode=SEUL;
         niveau=2;
         Serial.println("seul 2");
-
+        return 1;
     }
-     if(digitalRead(24)==HIGH){
-        mode=SEUL;
-        niveau=3;
-        Serial.println("seul 3");
-
-    }
+      if(digitalRead(24)==HIGH){
+         mode=SEUL;
+         niveau=3;
+         Serial.println("seul 3");
+         return 1;
+     }
      if(digitalRead(25)==HIGH){
         mode=MULTIJOUEUR;
         niveau=1;
         Serial.println("multi 1");
+        return 1;
 
     }
+
      if(digitalRead(26)==HIGH){
         mode=MULTIJOUEUR;
         niveau=2;
         Serial.println("multi 2");
-
+        return 1;
 
     }
      if(digitalRead(27)==HIGH){
         mode=MULTIJOUEUR;
         niveau=3;
-        Serial.println("multi 1");
-
+        Serial.println("multi 3");
+        return 1;
+    }
+    else{
+        Serial.println("yah");
+        return 0;
     }
 }

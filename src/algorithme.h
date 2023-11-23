@@ -17,5 +17,5 @@
 float vitesse_random(int vitesse_min,int vitesse_max);
 void algoInit();
 void suiveur_ligne(float vitesse);
-void jeux();
+bool jeux();
 void algo();
