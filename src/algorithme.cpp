@@ -5,8 +5,8 @@
 
 int joueur1;//niveau premier joueur
 int joueur2;//niveau deuxieme joueur
-int mode;//un ou deux joueur
-int niveau;
+int mode=0;//un ou deux joueur
+int niveau=0;
 int i;
 float currentMillis;
 long startTime;
@@ -33,19 +33,25 @@ void algoInit()
     pinMode(48,INPUT);
     pinMode(47,INPUT);
     pinMode(46,INPUT);
-
+     pinMode(22,INPUT);
+    pinMode(23,INPUT);
+    pinMode(24,INPUT);
+    pinMode(25,INPUT);
+    pinMode(26,INPUT);
+    pinMode(27,INPUT);
     long startTime = millis();
 }
 
 
+
 void algo(){
     //condition pour savoir le case
-
-
+    
     switch (mode){
         case SEUL:
         switch (niveau){
         case 1:
+        Serial.println("seul niveau 1");
         for(i=0; i<5;i++){
             suiveur_ligne(VITESSE);
            
@@ -62,45 +68,49 @@ void algo(){
 
 
         case 2:
+        Serial.println("seul niveau 2");
         i=0;
         while(i<5){
             suiveur_ligne(VITESSE);
             
-            if (1){//detectection incémentation
-                i++;
-            }
+            // if (1){//detectection incémentation
+            //     i++;
+            // }
         }
         mode=STOP;
             break;
 
 
 
-        case 3:
-        i=0;
-        while(i<5){
-            suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
+          case 3:
+           Serial.println("seul niveau 3");
+          i=0;
+          while(i<5){
+              suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
            
-            if (1){//detectection incémentation
-                i++;
-            }
-        }
-        mode=STOP;
+               if (1){//detectection incémentation
+                  i++;
+               }
+          }
+          mode=STOP;
 
-        break;
+        //  break;
         
         case STOP:
         MOTOR_SetSpeed(LEFT,0);
         MOTOR_SetSpeed(RIGHT,0);
         break;
 
-    break;
+    
         }
-
+        break;
 
         case MULTIJOUEUR:
         niveau=joueur1;
     switch (niveau){
+         
         case 1:
+        Serial.println("multi niveau 1");
         for(i=0; i<5;i++){
             suiveur_ligne(VITESSE);
             
@@ -122,7 +132,9 @@ void algo(){
         
 
 
-        case 2: i=0;
+        case 2:
+         i=0;
+         Serial.println("multi niveau 2");
         while(i<5){
             suiveur_ligne(VITESSE);
             if (1){//detectection incémentation
@@ -144,6 +156,7 @@ void algo(){
 
 
         case 3:
+        Serial.println("multi niveau 3");
         i=0;
         while(i<5){
             suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
@@ -164,7 +177,6 @@ void algo(){
         }
     break;
     }
-return;
 }
 
 
@@ -178,7 +190,7 @@ float vitesse_random(int vitesse_min,int vitesse_max){
   // Check if the timer has reached its duration
   if (elapsedTime >= duration) {
     vitesse=random(vitesse_min,vitesse_max)/10.0;
-    Serial.println(vitesse);
+    //Serial.println(vitesse);
     // Reset the timer for the next iteration
     startTime = millis();
   }
@@ -207,7 +219,7 @@ void suiveur_ligne(float vitesse){
             droite=digitalRead(47);
             MOTOR_SetSpeed(RIGHT,-vitesse/2);
             MOTOR_SetSpeed(LEFT,vitesse/2);
-            Serial.println("rotation droite");
+            //Serial.println("rotation droite");
         }
        
     }
@@ -222,7 +234,7 @@ void suiveur_ligne(float vitesse){
             droite=digitalRead(47);
             MOTOR_SetSpeed(RIGHT,vitesse/2);
             MOTOR_SetSpeed(LEFT,-vitesse/2);
-            Serial.println("rotation gauche");
+            //Serial.println("rotation gauche");
         }
         
     }
@@ -237,7 +249,7 @@ void suiveur_ligne(float vitesse){
             droite=digitalRead(47);
             MOTOR_SetSpeed(RIGHT,vitesse);
             MOTOR_SetSpeed(LEFT,vitesse);
-             Serial.println("tout droit");
+             //Serial.println("tout droit");
          }
         
      }
@@ -252,7 +264,7 @@ void suiveur_ligne(float vitesse){
             droite=digitalRead(47);
             MOTOR_SetSpeed(RIGHT,0);
             MOTOR_SetSpeed(LEFT,vitesse);
-            Serial.println("tourne gauche");
+            //Serial.println("tourne gauche");
          }
        
     }
@@ -267,7 +279,7 @@ void suiveur_ligne(float vitesse){
                 droite=digitalRead(47);
                 MOTOR_SetSpeed(RIGHT,vitesse);
                 MOTOR_SetSpeed(LEFT,0);
-                Serial.println("tourne droite");
+                //Serial.println("tourne droite");
           }
       
      }
@@ -276,3 +288,44 @@ void suiveur_ligne(float vitesse){
 }
 
 
+
+
+
+void jeux(){
+    if(digitalRead(22)==HIGH){//facile 1 joueur
+        mode=SEUL;
+        niveau=1;
+        Serial.println("seul 1");
+    }
+    if(digitalRead(23)==HIGH){
+        mode=SEUL;
+        niveau=2;
+        Serial.println("seul 2");
+
+    }
+     if(digitalRead(24)==HIGH){
+        mode=SEUL;
+        niveau=3;
+        Serial.println("seul 3");
+
+    }
+     if(digitalRead(25)==HIGH){
+        mode=MULTIJOUEUR;
+        niveau=1;
+        Serial.println("multi 1");
+
+    }
+     if(digitalRead(26)==HIGH){
+        mode=MULTIJOUEUR;
+        niveau=2;
+        Serial.println("multi 2");
+
+
+    }
+     if(digitalRead(27)==HIGH){
+        mode=MULTIJOUEUR;
+        niveau=3;
+        Serial.println("multi 1");
+
+    }
+}

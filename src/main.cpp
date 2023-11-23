@@ -10,7 +10,6 @@
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
   BoardInit();
   Serial.begin(9600);
-  //bluetoothInit();
   suiveurInit();
   panierInit();
   algoInit();
@@ -19,7 +18,8 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 }
 
 void loop() {
-
+jeux();
+//algo();
 //suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
 
 }                         
