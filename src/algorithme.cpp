@@ -5,13 +5,15 @@
 
 int joueur1;//niveau premier joueur
 int joueur2;//niveau deuxieme joueur
-int mode=0;//un ou deux joueur
+int mode = 0;//un ou deux joueur
+int etat = 0;
 int niveau=0;
 int i;
 float currentMillis;
 long startTime;
 long duration = 1000;
-int tour_joueur=1;
+int tour_joueur = 1;
+
 //suiveur ligne
 bool extreme_gauche=digitalRead(53);
 bool gauche=digitalRead(52);
@@ -42,142 +44,110 @@ void algoInit()
     long startTime = millis();
 }
 
+bool enJeu()
+{
+    switch (niveau){
+            case 1:
+                Serial.println("niveau 1");
+                if(i<5){
+                    suiveur_ligne(VITESSE_LENTE);
 
+                    if (1)
+                    {//detectection incémentation
+                        i++;
+                    }
+            }
+                else return 1;                
+                break;
+
+
+
+            case 2:
+                Serial.println("niveau 2");
+                if(i<5){
+                    suiveur_ligne(VITESSE);
+
+                    if (1){//detectection incémentation
+                        i++;
+                    }
+            }
+                else return 1;
+                break;
+
+            case 3:
+                Serial.println("niveau 23");
+                if(i<5){
+                    suiveur_ligne(VITESSE);
+
+                    if (1){//detectection incémentation
+                        i++;
+                    }
+                }
+                else return 1;
+                break;
+            }
+
+    return 0;
+}
+
+void stop()
+{
+    MOTOR_SetSpeed( 0, 0 );
+    MOTOR_SetSpeed( 1, 0 );
+}
+
+bool finDeJeu() 
+{
+    stop();
+    return 0;
+}
 
 void algo(){
     //condition pour savoir le case
     
-    switch (mode){
-        case SEUL:
-        switch (niveau){
-        case 1:
-        Serial.println("seul niveau 1");
-        for(i=0; i<5;i++){
-            suiveur_ligne(VITESSE);
-           
-            if(ROBUS_IsBumper(3)==true){//detection ligne = 1pour live ou bloc
-            //suiveurligne(0);
-            MOTOR_SetSpeed(LEFT,0);
-            MOTOR_SetSpeed(RIGHT,0);
-            delay(TEMPS);//changer millis
+    switch(etat){
+        case SYNCHRONISATION:
+        stop();
+            if (jeux() == true) 
+            {
+                digitalWrite(NEXT_PIN, HIGH);
+                delay(200);
+                digitalWrite(NEXT_PIN, LOW);
+                etat = EN_JEU;
             }
-        }
-            mode=STOP;
-            break;
-        
-
-
-        case 2:
-        Serial.println("seul niveau 2");
-        i=0;
-        while(i<5){
-            suiveur_ligne(VITESSE);
+        break;
             
-            // if (1){//detectection incémentation
-            //     i++;
-            // }
-        }
-        mode=STOP;
-            break;
-
-
-
-        //   case 3:
-        //    Serial.println("seul niveau 3");
-        //   i=0;
-        //   while(i<5){
-        //   float vitesse=vitesse_random(VITESSEMIN,VITESSEMAX);
-        //   Serial.println(vitesse);
-        //   suiveur_ligne(vitesse);
-         
-              
-        // }
-            
-        //   Serial.println("fin seul niveau 3");
-        //   //mode=STOP;
-
-        //   break;
+        case EN_JEU:
+            if (enJeu() == true)
+            {
+                if (mode = SEUL) etat = FIN_DE_JEU;
+                else etat = SYNCHRONISATION_2;
+            }
+        break;
         
-        case STOP:
-        MOTOR_SetSpeed(LEFT,0);
-        MOTOR_SetSpeed(RIGHT,0);
+        case SYNCHRONISATION_2:
+        stop();
+            if (jeux() == true) 
+            {
+                digitalWrite(NEXT_PIN, HIGH);
+                delay(200);
+                digitalWrite(NEXT_PIN, LOW);
+                etat = EN_JEU;
+            }
+        break;
+            
+        case EN_JEU_2:
+            if (enJeu() == true)
+            {
+                if (mode = SEUL) etat = FIN_DE_JEU;
+                else etat = SYNCHRONISATION_2;
+            }
         break;
 
-    
-        }
+        case FIN_DE_JEU:
+            if (finDeJeu() == true) 
         break;
 
-        case MULTIJOUEUR:
-        niveau=joueur1;
-    switch (niveau){
-         
-        case 1:
-        Serial.println("multi niveau 1");
-        for(i=0; i<5;i++){
-            suiveur_ligne(VITESSE);
-            
-            if(1){//detection ligne = 1pour live ou bloc
-            //suiveurligne(0);
-            MOTOR_SetSpeed(LEFT,0);
-            MOTOR_SetSpeed(RIGHT,0);
-            delay(TEMPS);
-            }
-        }
-        if(tour_joueur==2){
-            mode=STOP;
-        }
-        else{
-            tour_joueur++;
-            niveau=joueur2;
-        }
-            break;
-        
-
-
-        case 2:
-         i=0;
-         Serial.println("multi niveau 2");
-        while(i<5){
-            suiveur_ligne(VITESSE);
-            if (1){//detectection incémentation
-                i++;
-            }
-        }
-       if(tour_joueur==2){
-            mode=STOP;
-        }
-        else{
-            tour_joueur++;
-            niveau=joueur2;
-        }
-            break;
-
-
-            break;
-
-
-
-        case 3:
-        Serial.println("multi niveau 3");
-        i=0;
-        while(i<5){
-            suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-            
-            
-            if (1){//detectection incémentation
-                //i++;
-            }
-        }
-        if(tour_joueur==2){
-            mode=STOP;
-        }
-        else{
-            tour_joueur++;
-            niveau=joueur2;
-        }
-        break;
-        }
-    break;
     }
 }
 
