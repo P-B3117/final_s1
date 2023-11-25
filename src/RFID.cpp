@@ -11,10 +11,8 @@ void RFIDInit()
   Serial.println("Test du ID-12 sur UART2 (RX2/Digital 17)");
 }
 
-void RFIDloop()
+bool RFIDloop()
 {
-  while(1)
-  {
     if( Serial2.available() )
     {
       crecu=Serial2.read();     // lit le ID-12
@@ -33,6 +31,7 @@ void RFIDloop()
           // Affiche le code recu sans valider le checksum
           for( j=0 ; j<10 ; j++ )
             Serial.print(id_tag[j]);
+          return 1;
           Serial.println("");
           break;
         default:
@@ -41,7 +40,7 @@ void RFIDloop()
           break;
       }
     }
-  }
+    return 0;
 }
 
 /* fin du fichier */

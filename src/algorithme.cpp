@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <libRobus.h>
 #include "algorithme.h"
+#include "RFID.h"
+#include "detecteur_mur.h"
 
 
 int joueur1;//niveau premier joueur
@@ -44,7 +46,8 @@ bool enJeu()
             case 2:
                 Serial.println("niveau 2");
                 suiveur_ligne(VITESSE);
-                if (1){
+                if (1)
+                {
                         return 1;
                 }
                 else return 0;
@@ -53,7 +56,8 @@ bool enJeu()
             case 3:
                 Serial.println("niveau 23");
                     suiveur_ligne(vitesse_random());
-                    if (1){
+                    if (1)
+                    {
                         return 1;
                     }
                 else return 0;
@@ -76,54 +80,88 @@ bool finDeJeu()
     return 0;
 }
 
+bool retour()
+{
+    stop();
+    return 0;
+}
+
+void next()
+{
+    stop();
+    digitalWrite(NEXT_PIN, HIGH);
+    delay(200);
+    digitalWrite(NEXT_PIN, LOW);
+}
+
 void algo(){
     //condition pour savoir le case
     
     switch(etat){
         case SYNCHRONISATION:
         stop();
-            if (jeux() == true) 
+            if (jeux()) 
             {
-                i = 0;
-                digitalWrite(NEXT_PIN, HIGH);
-                delay(200);
-                digitalWrite(NEXT_PIN, LOW);
+                next();
                 etat = EN_JEU;
             }
         break;
             
         case EN_JEU:
-            if (enJeu() == true)
+            if (enJeu())
             {
-                if (mode = SEUL) etat = FIN_DE_JEU;
-                else etat = SYNCHRONISATION_2;
-            }
+                if (mode = SEUL) 
+                {
+                    etat = FIN_DE_JEU;
+                    next();
+                }
+                else
+                {
+                     etat = SYNCHRONISATION_2;
+                     next();
+                }
         break;
         
         case SYNCHRONISATION_2:
-        stop();
-            if (true) 
-            {
-                i = 0;
-                digitalWrite(NEXT_PIN, HIGH);
-                delay(200);
-                digitalWrite(NEXT_PIN, LOW);
+                next();
                 etat = EN_JEU_2;
-            }
         break;
             
         case EN_JEU_2:
-            if (enJeu() == true)
+            if (enJeu())  
             {
+                next();
                 etat = FIN_DE_JEU;
             }
         break;
 
         case FIN_DE_JEU:
-            if (finDeJeu() == true) 
+            if (finDeJeu())  
+            {
+                next();
+                etat = RFID;
+            }
+        break;
+
+        case RFID:
+        stop();
+            if (RFIDloop())
+            {
+                next();
+                etat = RETOUR;
+            }
+        break;
+
+        case RETOUR:
+            if (retour())
+            {
+                next();
+                etat = SYNCHRONISATION;
+            }
         break;
 
     }
+  }
 }
 
 

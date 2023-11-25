@@ -2,4 +2,4 @@
 
 void RFIDInit();
 
-void RFIDloop();
+bool RFIDloop();

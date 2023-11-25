@@ -8,6 +8,9 @@
 #define SYNCHRONISATION_2 2 
 #define EN_JEU_2 3
 #define FIN_DE_JEU 4
+#define RFID 5
+#define RETOUR 6
+
 #define SEUL 1
 #define MULTIJOUEUR 2
 #define TEMPS 10000
