@@ -4,6 +4,7 @@
 #include "suiveur.h"
 #include "panier.h"
 #include "algorithme.h"
+#include "RFID.h"
 
  char msg[]="hello";
 
@@ -14,11 +15,11 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   panierInit();
   algoInit();
   BluetoothInit();//librobus
- while(jeux()!=1);
+  RFIDInit();
 }
 
 void loop() {
-algo();
+RFIDloop();
+//algo();
 //suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-
 }                         

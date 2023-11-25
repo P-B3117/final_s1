@@ -14,28 +14,10 @@ long startTime;
 long duration = 1000;
 int tour_joueur = 1;
 
-//suiveur ligne
-bool extreme_gauche=digitalRead(53);
-bool gauche=digitalRead(52);
-bool moyen_gauche=digitalRead(51);  
-bool centre_gauche=digitalRead(45);
-bool centre_droite=digitalRead(49);
-bool moyen_droite=digitalRead(48);
-bool droite=digitalRead(47);
-bool extreme_droite=digitalRead(46);
-
 
 void algoInit()
 {
-    pinMode(53,INPUT);
-    pinMode(52,INPUT);
-    pinMode(51,INPUT);
-    pinMode(45,INPUT);
-    pinMode(49,INPUT);
-    pinMode(48,INPUT);
-    pinMode(47,INPUT);
-    pinMode(46,INPUT);
-     pinMode(22,INPUT);
+    pinMode(22,INPUT);
     pinMode(23,INPUT);
     pinMode(24,INPUT);
     pinMode(25,INPUT);
@@ -77,7 +59,7 @@ bool enJeu()
             case 3:
                 Serial.println("niveau 23");
                 if(i<5){
-                    suiveur_ligne(VITESSE);
+                    suiveur_ligne(vitesse_random());
 
                     if (1){//detectection incémentation
                         i++;
@@ -89,6 +71,7 @@ bool enJeu()
 
     return 0;
 }
+
 
 void stop()
 {
@@ -110,6 +93,7 @@ void algo(){
         stop();
             if (jeux() == true) 
             {
+                i = 0;
                 digitalWrite(NEXT_PIN, HIGH);
                 delay(200);
                 digitalWrite(NEXT_PIN, LOW);
@@ -127,20 +111,20 @@ void algo(){
         
         case SYNCHRONISATION_2:
         stop();
-            if (jeux() == true) 
+            if (true) 
             {
+                i = 0;
                 digitalWrite(NEXT_PIN, HIGH);
                 delay(200);
                 digitalWrite(NEXT_PIN, LOW);
-                etat = EN_JEU;
+                etat = EN_JEU_2;
             }
         break;
             
         case EN_JEU_2:
             if (enJeu() == true)
             {
-                if (mode = SEUL) etat = FIN_DE_JEU;
-                else etat = SYNCHRONISATION_2;
+                etat = FIN_DE_JEU;
             }
         break;
 
@@ -153,7 +137,7 @@ void algo(){
 
 
 
-float vitesse_random(int vitesse_min,int vitesse_max){
+float vitesse_random(int vitesse_min = VITESSEMIN, int vitesse_max = VITESSEMAX){
     long currentTime = millis();
     float vitesse;
   // Calculate the elapsed time since the timer started
@@ -168,100 +152,6 @@ float vitesse_random(int vitesse_min,int vitesse_max){
   }
     return vitesse;
 }
-
-
-void suiveur_ligne(float vitesse){
-
-    extreme_gauche=digitalRead(53);
-    gauche=digitalRead(52);
-    moyen_gauche=digitalRead(51);
-    centre_gauche=digitalRead(45);
-    centre_droite=digitalRead(49);
-    moyen_droite=digitalRead(48);
-    droite=digitalRead(47);
-    extreme_droite=digitalRead(46);
-    if(extreme_droite==0 && droite!=0){
-        while(extreme_droite==0 && droite!=0){
-             extreme_gauche=digitalRead(53);
-            gauche=digitalRead(52);
-            moyen_gauche=digitalRead(51);
-            centre_gauche=digitalRead(45);
-            centre_droite=digitalRead(49);
-            moyen_droite=digitalRead(48);
-            droite=digitalRead(47);
-            MOTOR_SetSpeed(RIGHT,-vitesse/2);
-            MOTOR_SetSpeed(LEFT,vitesse/2);
-            //Serial.println("rotation droite");
-        }
-       
-    }
-    else if(extreme_gauche==0 && gauche!=0){
-        while(extreme_gauche==0 && gauche!=0){
-            extreme_gauche=digitalRead(53);
-            gauche=digitalRead(52);
-            moyen_gauche=digitalRead(51);
-            centre_gauche=digitalRead(45);
-            centre_droite=digitalRead(49);
-            moyen_droite=digitalRead(48);
-            droite=digitalRead(47);
-            MOTOR_SetSpeed(RIGHT,vitesse/2);
-            MOTOR_SetSpeed(LEFT,-vitesse/2);
-            //Serial.println("rotation gauche");
-        }
-        
-    }
-    else if(centre_droite==0||centre_gauche==0){
-        while(centre_droite==0||centre_gauche==0){
-            extreme_gauche=digitalRead(53);
-            gauche=digitalRead(52);
-            moyen_gauche=digitalRead(51);
-            centre_gauche=digitalRead(45);
-            centre_droite=digitalRead(49);
-            moyen_droite=digitalRead(48);
-            droite=digitalRead(47);
-            MOTOR_SetSpeed(RIGHT,vitesse);
-            MOTOR_SetSpeed(LEFT,vitesse);
-             //Serial.println("tout droit");
-         }
-        
-     }
-    else if(moyen_droite==0||droite==0){
-         while(moyen_droite==0||droite==0){
-            extreme_gauche=digitalRead(53);
-            gauche=digitalRead(52);
-            moyen_gauche=digitalRead(51);
-            centre_gauche=digitalRead(45);
-            centre_droite=digitalRead(49);
-            moyen_droite=digitalRead(48);
-            droite=digitalRead(47);
-            MOTOR_SetSpeed(RIGHT,0);
-            MOTOR_SetSpeed(LEFT,vitesse);
-            //Serial.println("tourne gauche");
-         }
-       
-    }
-     else if((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
-          while((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
-                extreme_gauche=digitalRead(53);
-                gauche=digitalRead(52);
-                moyen_gauche=digitalRead(51);
-                centre_gauche=digitalRead(45);
-                centre_droite=digitalRead(49);
-                moyen_droite=digitalRead(48);
-                droite=digitalRead(47);
-                MOTOR_SetSpeed(RIGHT,vitesse);
-                MOTOR_SetSpeed(LEFT,0);
-                //Serial.println("tourne droite");
-          }
-      
-     }
-    
-    
-}
-
-
-
-
 
 bool jeux(){
     if(digitalRead(22)==HIGH){//facile 1 joueur
