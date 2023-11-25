@@ -31,41 +31,32 @@ bool enJeu()
     switch (niveau){
             case 1:
                 Serial.println("niveau 1");
-                if(i<5){
                     suiveur_ligne(VITESSE_LENTE);
-
                     if (1)
-                    {//detectection incémentation
-                        i++;
+                    {
+                        return 1;
                     }
-            }
-                else return 1;                
+                else return 0;                
                 break;
 
 
 
             case 2:
                 Serial.println("niveau 2");
-                if(i<5){
-                    suiveur_ligne(VITESSE);
-
-                    if (1){//detectection incémentation
-                        i++;
-                    }
-            }
-                else return 1;
+                suiveur_ligne(VITESSE);
+                if (1){
+                        return 1;
+                }
+                else return 0;
                 break;
 
             case 3:
                 Serial.println("niveau 23");
-                if(i<5){
                     suiveur_ligne(vitesse_random());
-
-                    if (1){//detectection incémentation
-                        i++;
+                    if (1){
+                        return 1;
                     }
-                }
-                else return 1;
+                else return 0;
                 break;
             }
 
