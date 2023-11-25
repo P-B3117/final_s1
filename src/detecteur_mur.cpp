@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <libRobus.h>
-#include "algorithme.h"
-
+#include "detecteur_mur.h"
 float detection_distance_droite (void){
     float tension_bas=ROBUS_ReadIR(3);
     float inverse_bas=1/tension_bas;

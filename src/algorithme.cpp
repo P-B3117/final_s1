@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <libRobus.h>
 #include "algorithme.h"
-
+#include "detecteur_mur.h"
 
 int joueur1;//niveau premier joueur
 int joueur2;//niveau deuxieme joueur
@@ -32,7 +32,7 @@ bool enJeu()
             case 1:
                 Serial.println("niveau 1");
                     suiveur_ligne(VITESSE_LENTE);
-                    if (1)
+                    if (detection_distance_droite()<15.0)
                     {
                         return 1;
                     }
@@ -44,7 +44,7 @@ bool enJeu()
             case 2:
                 Serial.println("niveau 2");
                 suiveur_ligne(VITESSE);
-                if (1){
+                if (detection_distance_droite()<15.0){
                         return 1;
                 }
                 else return 0;
@@ -53,7 +53,7 @@ bool enJeu()
             case 3:
                 Serial.println("niveau 23");
                     suiveur_ligne(vitesse_random());
-                    if (1){
+                    if (detection_distance_droite()<15.0){
                         return 1;
                     }
                 else return 0;
