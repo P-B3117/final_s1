@@ -9,18 +9,19 @@
  char msg[]="hello";
 
 void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setup mettez le dans votre fonction init
-  BoardInit();
   Serial.begin(9600);
+  while (!Serial)
+  {  }
+  Serial.println("allo");
+  //BoardInit();
+  Serial.println("allo");
   suiveurInit();
   panierInit();
   algoInit();
-  BluetoothInit();//librobus
   RFIDInit();
-  pinMode(37,OUTPUT);
-  digitalWrite(37,HIGH);
 }
 void loop() {
-RFIDloop();
-//algo();
+//RFIDloop();
+algo();
 //suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
 }                         
