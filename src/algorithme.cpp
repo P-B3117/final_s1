@@ -19,10 +19,10 @@ int tour_joueur = 1;
 
 void algoInit()
 {
-    pinMode(22,INPUT);
-    pinMode(23,INPUT);
-    pinMode(24,INPUT);
-    pinMode(25,INPUT);
+    pinMode(38,INPUT);
+    pinMode(39,INPUT);
+    pinMode(42,INPUT);
+    pinMode(28,INPUT);
     pinMode(26,INPUT);
     pinMode(27,INPUT);
     pinMode(NEXT_PIN,OUTPUT);
@@ -54,7 +54,7 @@ bool enJeu()
                 break;
 
             case 3:
-                Serial.println("niveau 23");
+                Serial.println("niveau 39");
                     suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
                     if (detection_distance_droite()<15.0){
                         return 1;
@@ -182,25 +182,25 @@ float vitesse_random(int vitesse_min = VITESSEMIN, int vitesse_max = VITESSEMAX)
 }
 
 bool jeux(){
-    if(digitalRead(22)==HIGH){//facile 1 joueur
+    if(digitalRead(38)==HIGH){//facile 1 joueur
         mode=SEUL;
         niveau=1;
         Serial.println("seul 1");
         return 1;
     }
-    if(digitalRead(23)==HIGH){
+    if(digitalRead(39)==HIGH){
         mode=SEUL;
         niveau=2;
         Serial.println("seul 2");
         return 1;
     }
-      if(digitalRead(24)==HIGH){
+      if(digitalRead(42)==HIGH){
          mode=SEUL;
          niveau=3;
          Serial.println("seul 3");
          return 1;
      }
-     if(digitalRead(25)==HIGH){
+     if(digitalRead(28)==HIGH){
         mode=MULTIJOUEUR;
         niveau=1;
         Serial.println("multi 1");
@@ -222,7 +222,7 @@ bool jeux(){
         return 1;
     }
     else{
-        Serial.println("yah");
+        Serial.println("rien");
         return 0;
     }
 }
