@@ -109,7 +109,7 @@ void algo(){
         case EN_JEU:
             if (enJeu())
             {
-                if (mode = SEUL) 
+                if (mode == SEUL) 
                 {
                     etat = FIN_DE_JEU;
                     next();
@@ -225,7 +225,7 @@ bool jeux(){
         return 1;
     }
     else{
-        Serial.println("rien");
+        //Serial.println("rien");
         return 0;
     }
 }
