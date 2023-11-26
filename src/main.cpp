@@ -17,8 +17,9 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   Serial.println("allo");
   suiveurInit();
   panierInit();
-  algoInit();
   RFIDInit();
+  delay(3000);
+  algoInit();
 }
 void loop() {
 //RFIDloop();
