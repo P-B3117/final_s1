@@ -12,7 +12,7 @@ int etat = 0;
 int niveau=0;
 int i;
 float currentMillis;
-long startTime;
+long startTime = 0;
 long duration = 1000;
 int tour_joueur = 1;
 
@@ -176,7 +176,7 @@ float vitesse_random(int vitesse_min = VITESSEMIN, int vitesse_max = VITESSEMAX)
 
   // Check if the timer has reached its duration
   if (elapsedTime >= duration) {
-    vitesse=random(vitesse_min,vitesse_max)/10.0;
+    vitesse= (float)random(vitesse_min,vitesse_max)/10.0;
     //Serial.println(vitesse);
     // Reset the timer for the next iteration
     startTime = millis();
