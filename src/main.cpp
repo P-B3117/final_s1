@@ -22,6 +22,7 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
 }
 void loop() {
 //RFIDloop();
+Serial.println("debut loop");
 algo();
 //suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
 }                         
