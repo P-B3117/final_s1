@@ -15,6 +15,7 @@ float currentMillis;
 long startTime = 0;
 long duration = 1000;
 int tour_joueur = 1;
+float vitesse = 0;
 
 
 void algoInit()
@@ -170,7 +171,6 @@ void algo(){
 
 float vitesse_random(int vitesse_min = VITESSEMIN, int vitesse_max = VITESSEMAX){
     long currentTime = millis();
-    float vitesse = 0;
     Serial.println("rando1");
   // Calculate the elapsed time since the timer started
   long elapsedTime = currentTime - startTime;
