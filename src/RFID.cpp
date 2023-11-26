@@ -13,6 +13,8 @@ void RFIDInit()
 
 bool RFIDloop()
 {
+  while(1)
+  {
     if( Serial2.available() )
     {
       crecu=Serial2.read();     // lit le ID-12
@@ -40,7 +42,7 @@ bool RFIDloop()
           break;
       }
     }
-    return 0;
+  }
 }
 
 /* fin du fichier */

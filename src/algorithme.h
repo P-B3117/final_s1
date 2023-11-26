@@ -19,7 +19,7 @@
 #define VITESSE_LENTE 0.2
 #define VITESSE 0.3
 
-#define NEXT_PIN 28
+#define NEXT_PIN 37
 
 //suiveur ligne
 
