@@ -118,16 +118,20 @@ void algo(){
                 {
                      etat = SYNCHRONISATION_2;
                      next();
+                     Serial.println("go to synchro 2");
                 }
         break;
         
         case SYNCHRONISATION_2:
+                Serial.println("arrived at 2");
                 delay(5000);
                 next();
+                Serial.println("go to en jeu 2");
                 etat = EN_JEU_2;
         break;
             
         case EN_JEU_2:
+            Serial.println("arrived at jeu 2");
             if (enJeu())  
             {
                 next();
@@ -136,7 +140,7 @@ void algo(){
         break;
 
         case FIN_DE_JEU:
-            if (finDeJeu())  
+            if (finDeJeu())
             {
                 next();
                 etat = RFID;
