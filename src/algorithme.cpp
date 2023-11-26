@@ -121,6 +121,7 @@ void algo(){
         break;
         
         case SYNCHRONISATION_2:
+                delay(5000);
                 next();
                 etat = EN_JEU_2;
         break;
@@ -145,7 +146,6 @@ void algo(){
         stop();
             if (RFIDloop())
             {
-                next();
                 etat = RETOUR;
             }
         break;
@@ -153,7 +153,6 @@ void algo(){
         case RETOUR:
             if (retour())
             {
-                next();
                 etat = SYNCHRONISATION;
             }
         break;
