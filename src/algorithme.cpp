@@ -25,6 +25,7 @@ void algoInit()
     pinMode(25,INPUT);
     pinMode(26,INPUT);
     pinMode(27,INPUT);
+    pinMode(NEXT_PIN,OUTPUT);
     long startTime = millis();
 }
 
@@ -54,7 +55,7 @@ bool enJeu()
 
             case 3:
                 Serial.println("niveau 23");
-                    suiveur_ligne(vitesse_random());
+                    suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
                     if (detection_distance_droite()<15.0){
                         return 1;
                     }

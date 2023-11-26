@@ -16,8 +16,9 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   algoInit();
   BluetoothInit();//librobus
   RFIDInit();
+  pinMode(37,OUTPUT);
+  digitalWrite(37,HIGH);
 }
-
 void loop() {
 RFIDloop();
 //algo();
