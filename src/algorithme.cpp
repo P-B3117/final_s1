@@ -170,17 +170,25 @@ void algo(){
 
 float vitesse_random(int vitesse_min = VITESSEMIN, int vitesse_max = VITESSEMAX){
     long currentTime = millis();
-    float vitesse;
+    float vitesse = 0;
+    Serial.println("rando1");
   // Calculate the elapsed time since the timer started
   long elapsedTime = currentTime - startTime;
+    Serial.println("rando2");
 
   // Check if the timer has reached its duration
   if (elapsedTime >= duration) {
     vitesse= (float)random(vitesse_min,vitesse_max)/10.0;
+    
+    Serial.println("rando3");
     //Serial.println(vitesse);
     // Reset the timer for the next iteration
     startTime = millis();
+    
+    Serial.println("rando4");
   }
+  
+    Serial.println("rando5");
     return vitesse;
 }
 
