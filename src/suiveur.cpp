@@ -2,6 +2,11 @@
 #include <libRobus.h>
 #include "suiveur.h"
 
+#define Gauche 0
+#define Droite 1
+#define DISTANCE_90 1942
+#define DISTANCE_180 DISTANCE_90*2
+
 void suiveurInit()
 {
     pinMode(53,INPUT);
@@ -110,4 +115,91 @@ void suiveur_ligne(float vitesse){
      }
     
     
+}
+
+void tourne90( float valeurGauche, float valeurDroite){
+
+    Serial.print(valeurGauche);
+    Serial.print("          ");
+    Serial.print(ENCODER_Read(Gauche));
+    Serial.print("          ");
+    Serial.print(valeurDroite);
+    Serial.print("          ");
+    Serial.print(ENCODER_Read(Droite));
+    Serial.println();
+
+    //ENCODER_Reset(0);
+    //ENCODER_Reset(1);
+
+
+    MOTOR_SetSpeed(Gauche,valeurGauche);
+    MOTOR_SetSpeed(Droite,valeurDroite);
+
+    delay(350);
+
+    
+    MOTOR_SetSpeed(Gauche,0);
+    MOTOR_SetSpeed(Droite,0);
+
+/*
+ while(1)
+ {
+  int encodeurGauche = ENCODER_Read(Gauche);
+  int encodeurDroite = ENCODER_Read(Droite); 
+  
+  if (encodeurGauche < -DISTANCE_90 || encodeurDroite > DISTANCE_90 )
+  {
+    if (encodeurGauche < -DISTANCE_90 ){
+        MOTOR_SetSpeed(Gauche, 0);
+      if (encodeurDroite>DISTANCE_90){
+        MOTOR_SetSpeed(Droite, 0);
+        return;
+       }     }
+    else if (encodeurDroite > DISTANCE_90){
+        MOTOR_SetSpeed(Droite, 0);
+
+        if (encodeurGauche <- DISTANCE_90){
+        MOTOR_SetSpeed(Gauche, 0);
+        return;
+       } 
+      }
+    }
+
+ }
+ */
+}
+
+void tourne180( float valeurGauche, float valeurDroite){
+
+    ENCODER_Reset(0);
+    ENCODER_Reset(1);
+
+
+    MOTOR_SetSpeed(Gauche,valeurGauche);
+    MOTOR_SetSpeed(Droite,valeurDroite);
+
+ while(1)
+ {
+  int encodeurGauche = ENCODER_Read(Gauche);
+  int encodeurDroite = ENCODER_Read(Droite); 
+  
+  if (encodeurGauche <- DISTANCE_180 || encodeurDroite > DISTANCE_180 )
+  {
+    if (encodeurGauche<-DISTANCE_180){
+        MOTOR_SetSpeed(Gauche,0);
+      if (encodeurDroite>DISTANCE_180){
+        MOTOR_SetSpeed(Droite,0);
+        return;
+       }     }
+    else if (encodeurDroite>DISTANCE_180){
+        MOTOR_SetSpeed(Droite,0);
+
+        if (encodeurGauche<-DISTANCE_180){
+        MOTOR_SetSpeed(Gauche,0);
+        return;
+       } 
+      }
+    }
+
+ }
 }

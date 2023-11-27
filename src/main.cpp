@@ -20,6 +20,8 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   RFIDInit();
   delay(3000);
   algoInit();
+  SERVO_Enable(SERVO_1);
+  //tourne90();
 }
 void loop() {
 //RFIDloop();

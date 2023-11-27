@@ -3,6 +3,7 @@
 #include "algorithme.h"
 #include "RFID.h"
 #include "detecteur_mur.h"
+#include "suiveur.h"
 
 
 int joueur1;//niveau premier joueur
@@ -16,6 +17,14 @@ long startTime = 0;
 long duration = 1000;
 int tour_joueur = 1;
 float vitesse = 0;
+int etatFin = 0;
+
+#define OUVERT 30
+#define FERME 150
+#define TEMPS_DECHARGE 2500
+#define DISTANCE_DETECTION 30
+#define GAUCHE 0
+#define DROITE 1
 
 
 void algoInit()
@@ -30,14 +39,45 @@ void algoInit()
     long startTime = millis();
 }
 
+
+void stop()
+{
+    MOTOR_SetSpeed( GAUCHE, 0 );
+    MOTOR_SetSpeed( DROITE, 0 );
+}
+
+bool pasLignes()
+{
+    if ( digitalRead(53) == LOW && digitalRead(44) == LOW && digitalRead(40) == LOW && digitalRead(45) == LOW && digitalRead(49) == LOW && digitalRead(48) == LOW &&  digitalRead(47) == LOW )
+
+    { return 1; }
+
+    return 0;
+}
+
+void tourne()
+{
+    
+        MOTOR_SetSpeed(GAUCHE, -VITESSE_LENTE);
+        MOTOR_SetSpeed(DROITE, VITESSE_LENTE);
+
+        delay(350);
+
+        while(digitalRead(45) == HIGH && digitalRead(49) == HIGH) {}
+
+        stop();
+        return;
+}
+
 bool enJeu()
 {
     switch (niveau){
             case 1:
                 Serial.println("niveau 1");
                     suiveur_ligne(VITESSE_LENTE);
-                    if (detection_distance_droite()<15.0)
+                    if (detection_distance_droite() <= DISTANCE_DETECTION)
                     {
+                        stop();
                         return 1;
                     }
                 else return 0;                
@@ -48,7 +88,9 @@ bool enJeu()
             case 2:
                 Serial.println("niveau 2");
                 suiveur_ligne(VITESSE);
-                if (detection_distance_droite()<15.0){
+                if (detection_distance_droite() <= DISTANCE_DETECTION)
+                {
+                        stop();
                         return 1;
                 }
                 else return 0;
@@ -57,7 +99,9 @@ bool enJeu()
             case 3:
                 Serial.println("niveau 3");
                     suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-                    if (detection_distance_droite()<15.0){
+                    if (detection_distance_droite() <= DISTANCE_DETECTION)
+                    {
+                        stop();
                         return 1;
                     }
                 else return 0;
@@ -67,22 +111,86 @@ bool enJeu()
     return 0;
 }
 
-
-void stop()
-{
-    MOTOR_SetSpeed( 0, 0 );
-    MOTOR_SetSpeed( 1, 0 );
-}
-
 bool finDeJeu() 
 {
-    stop();
-    return 0;
+    switch(etatFin)
+    {
+        case 0:
+        Serial.println("rendu");
+        tourne();
+        Serial.println("a tourné");
+        etatFin++;
+
+        break;
+
+        case 1:
+        Serial.println("go");
+        MOTOR_SetSpeed(GAUCHE, VITESSE_LENTE);
+        MOTOR_SetSpeed(DROITE, VITESSE_LENTE);
+        delay(100);
+        Serial.println("fin go");
+        etatFin++;
+        break;
+
+        case 2:
+        Serial.println("suis");
+
+                suiveur_ligne(VITESSE);
+
+                if (detection_distance_droite() <= DISTANCE_DETECTION )
+                {
+                    
+                        Serial.println("Fin suis");
+                        stop();
+                        etatFin = 0;
+                        return 1;
+                }
+
+        break;
+    }
+    
+        return 0;
 }
 
 bool retour()
 {
-    stop();
+    
+    switch (etatFin)
+    {
+
+    case 0:
+
+    tourne();
+    etatFin++;
+
+        break;
+
+    case 1:
+        Serial.println("go");
+        MOTOR_SetSpeed(GAUCHE, VITESSE_LENTE);
+        MOTOR_SetSpeed(DROITE, VITESSE_LENTE);
+        delay(100);
+        Serial.println("fin go");
+        etatFin++;
+    break;
+    
+    case 2:
+
+    suiveur_ligne(VITESSE);
+
+    if (detection_distance_droite() <= DISTANCE_DETECTION )
+    { 
+
+     etatFin = 0;
+     stop();
+
+     return 1;
+
+    }
+
+    break;
+    }
+
     return 0;
 }
 
@@ -99,11 +207,17 @@ void algo(){
     
     switch(etat){
         case SYNCHRONISATION:
+        etatFin = 0;
         stop();
+        SERVO_SetAngle(SERVO_1, FERME);
             if (jeux()) 
             {
                 next();
+                SERVO_Disable(SERVO_1);
                 etat = EN_JEU;
+                MOTOR_SetSpeed(GAUCHE, VITESSE_LENTE);
+                MOTOR_SetSpeed(DROITE, VITESSE_LENTE);
+                delay(100);
             }
         break;
             
@@ -141,10 +255,13 @@ void algo(){
         break;
 
         case FIN_DE_JEU:
+        Serial.println("fin de jeu");
             if (finDeJeu())
             {
+                Serial.println("fin");
                 next();
                 etat = RFID;
+                SERVO_SetAngle(SERVO_1, FERME);
             }
         break;
 
@@ -152,6 +269,8 @@ void algo(){
         stop();
             if (RFIDloop())
             {
+                SERVO_SetAngle(SERVO_1, OUVERT);
+                delay(TEMPS_DECHARGE);
                 etat = RETOUR;
             }
         break;

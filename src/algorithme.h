@@ -14,8 +14,8 @@
 #define SEUL 1
 #define MULTIJOUEUR 2
 #define TEMPS 10000
-#define VITESSEMAX 4
-#define VITESSEMIN 1
+#define VITESSEMAX 3
+#define VITESSEMIN 1.5
 #define VITESSE_LENTE 0.2
 #define VITESSE 0.3
 
