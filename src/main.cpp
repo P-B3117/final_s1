@@ -14,6 +14,7 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   {  }
   Serial.println("allo");
   BoardInit();
+  SERVO_Disable(SERVO_1);
   Serial.println("allo");
   suiveurInit();
   panierInit();
@@ -24,6 +25,7 @@ void setup() { //ne pas toucher au setup, ce que vous voulez mettre dans le setu
   //tourne90();
 }
 void loop() {
+//SERVO_SetAngle(SERVO_1, 0);
 //RFIDloop();
 //Serial.println("debut loop");
 algo();

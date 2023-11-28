@@ -19,8 +19,8 @@ int tour_joueur = 1;
 float vitesse = 0;
 int etatFin = 0;
 
-#define OUVERT 180
-#define FERME 0
+#define OUVERT 0
+#define FERME 90
 #define TEMPS_DECHARGE 2500
 #define DISTANCE_DETECTION 20
 #define GAUCHE 0
@@ -200,7 +200,6 @@ void algo(){
         SERVO_SetAngle(SERVO_1, FERME);
             if (jeux()) 
             {
-                next();
                 SERVO_Disable(SERVO_1);
                 etat = EN_JEU;
                 MOTOR_SetSpeed(GAUCHE, VITESSE_LENTE);
@@ -246,6 +245,7 @@ void algo(){
         Serial.println("fin de jeu");
             if (finDeJeu())
             {
+                SERVO_Enable(SERVO_1);
                 Serial.println("fin");
                 next();
                 etat = RFID;
@@ -259,6 +259,7 @@ void algo(){
             {
                 SERVO_SetAngle(SERVO_1, OUVERT);
                 delay(TEMPS_DECHARGE);
+                SERVO_SetAngle(SERVO_1, FERME);
                 etat = RETOUR;
             }
         break;
@@ -266,6 +267,7 @@ void algo(){
         case RETOUR:
             if (retour())
             {
+                SERVO_Disable(SERVO_1);
                 etat = SYNCHRONISATION;
             }
         break;
