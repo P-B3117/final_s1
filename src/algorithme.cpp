@@ -22,7 +22,8 @@ int etatFin = 0;
 #define OUVERT 0
 #define FERME 90
 #define TEMPS_DECHARGE 2500
-#define DISTANCE_DETECTION 20
+#define DISTANCE_DETECTION_GAUCHE 18
+#define DISTANCE_DETECTION_DROITE 30
 #define GAUCHE 0
 #define DROITE 1
 
@@ -88,7 +89,7 @@ bool enJeu()
                 break;
             }
 
-    if (detection_distance_gauche() <= DISTANCE_DETECTION)
+    if (detection_distance_gauche() <= DISTANCE_DETECTION_GAUCHE)
     {
         stop();
         return 1;
@@ -123,7 +124,7 @@ bool finDeJeu()
 
                 suiveur_ligne(VITESSE);
 
-                if (detection_distance_droite() <= DISTANCE_DETECTION )
+                if (detection_distance_droite() <= DISTANCE_DETECTION_DROITE )
                 {
                     
                         Serial.println("Fin suis");
@@ -164,7 +165,7 @@ bool retour()
 
     suiveur_ligne(VITESSE);
 
-    if (detection_distance_droite() <= DISTANCE_DETECTION )
+    if (detection_distance_droite() <= DISTANCE_DETECTION_DROITE )
     { 
 
      delay(1000);
