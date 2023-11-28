@@ -19,10 +19,10 @@ int tour_joueur = 1;
 float vitesse = 0;
 int etatFin = 0;
 
-#define OUVERT 30
-#define FERME 150
+#define OUVERT 180
+#define FERME 0
 #define TEMPS_DECHARGE 2500
-#define DISTANCE_DETECTION 30
+#define DISTANCE_DETECTION 20
 #define GAUCHE 0
 #define DROITE 1
 
@@ -74,39 +74,25 @@ bool enJeu()
     switch (niveau){
             case 1:
                 Serial.println("niveau 1");
-                    suiveur_ligne(VITESSE_LENTE);
-                    if (detection_distance_droite() <= DISTANCE_DETECTION)
-                    {
-                        stop();
-                        return 1;
-                    }
-                else return 0;                
+                    suiveur_ligne(VITESSE_LENTE);         
                 break;
-
-
 
             case 2:
                 Serial.println("niveau 2");
                 suiveur_ligne(VITESSE);
-                if (detection_distance_droite() <= DISTANCE_DETECTION)
-                {
-                        stop();
-                        return 1;
-                }
-                else return 0;
                 break;
 
             case 3:
                 Serial.println("niveau 3");
                     suiveur_ligne(vitesse_random(VITESSEMIN,VITESSEMAX));
-                    if (detection_distance_droite() <= DISTANCE_DETECTION)
-                    {
-                        stop();
-                        return 1;
-                    }
-                else return 0;
                 break;
             }
+
+    if (detection_distance_gauche() <= DISTANCE_DETECTION)
+    {
+        stop();
+        return 1;
+    }
 
     return 0;
 }
@@ -181,6 +167,8 @@ bool retour()
     if (detection_distance_droite() <= DISTANCE_DETECTION )
     { 
 
+     delay(1000);
+     tourne();
      etatFin = 0;
      stop();
 
