@@ -14,16 +14,18 @@ int niveau=0;
 int i;
 float currentMillis;
 long startTime = 0;
+long algoStartTime = 0;
 long duration = 1000;
 int tour_joueur = 1;
 float vitesse = 0;
 int etatFin = 0;
+long startPlace = 0;
 
 #define OUVERT 0
 #define FERME 90
 #define TEMPS_DECHARGE 2500
 #define DISTANCE_DETECTION_GAUCHE 18
-#define DISTANCE_DETECTION_DROITE 30
+#define DISTANCE_DETECTION_DROITE 35
 #define GAUCHE 0
 #define DROITE 1
 
@@ -37,7 +39,6 @@ void algoInit()
     pinMode(26,INPUT);
     pinMode(27,INPUT);
     pinMode(NEXT_PIN,OUTPUT);
-    long startTime = millis();
 }
 
 
@@ -168,15 +169,18 @@ bool retour()
     if (detection_distance_droite() <= DISTANCE_DETECTION_DROITE )
     { 
 
-     delay(1000);
+     delay(900);
      tourne();
-     etatFin = 0;
-     stop();
-
-     return 1;
+     etatFin = 3;
+     startPlace = millis();
 
     }
 
+    break;
+
+    case 3:
+    if (startPlace > millis()) suiveur_ligne(VITESSE);
+    else return 1;
     break;
     }
 
@@ -206,11 +210,12 @@ void algo(){
                 MOTOR_SetSpeed(GAUCHE, VITESSE_LENTE);
                 MOTOR_SetSpeed(DROITE, VITESSE_LENTE);
                 delay(100);
+                algoStartTime = millis() + 5000;
             }
         break;
             
         case EN_JEU:
-            if (enJeu())
+            if (enJeu() && algoStartTime < millis())
             {
                 if (mode == SEUL) 
                 {
@@ -231,11 +236,12 @@ void algo(){
                 next();
                 Serial.println("go to en jeu 2");
                 etat = EN_JEU_2;
+                algoStartTime = millis() + 5000;
         break;
             
         case EN_JEU_2:
             Serial.println("arrived at jeu 2");
-            if (enJeu())  
+            if (enJeu() && algoStartTime < millis())  
             {
                 next();
                 etat = FIN_DE_JEU;
