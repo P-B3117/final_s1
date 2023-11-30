@@ -18,6 +18,7 @@
 #define VITESSEMIN 2.5
 #define VITESSE_LENTE 0.2
 #define VITESSE 0.3
+#define TEMPS_AVANT_FIN 750
 
 #define NEXT_PIN 41
 

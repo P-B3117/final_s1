@@ -106,7 +106,7 @@ bool enJeu()
 
     if (detection_distance_gauche() <= DISTANCE_DETECTION_GAUCHE)
     {
-        stop(750);
+        stop(TEMPS_AVANT_FIN);
         return 1;
     }
 
