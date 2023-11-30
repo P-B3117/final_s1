@@ -24,8 +24,8 @@ long startPlace = 0;
 #define OUVERT 0
 #define FERME 90
 #define TEMPS_DECHARGE 2500
-#define DISTANCE_DETECTION_GAUCHE 18
-#define DISTANCE_DETECTION_DROITE 35
+#define DISTANCE_DETECTION_GAUCHE 8
+#define DISTANCE_DETECTION_DROITE 12
 #define GAUCHE 0
 #define DROITE 1
 
@@ -44,6 +44,20 @@ void algoInit()
 
 void stop()
 {
+    MOTOR_SetSpeed( GAUCHE, 0 );
+    MOTOR_SetSpeed( DROITE, 0 );
+}
+
+void stop(unsigned long time)
+{
+    unsigned long endTime = millis() + time;
+
+    while (millis() < endTime)
+    {
+        suiveur_ligne(VITESSE);
+    }
+    
+
     MOTOR_SetSpeed( GAUCHE, 0 );
     MOTOR_SetSpeed( DROITE, 0 );
 }
@@ -92,7 +106,7 @@ bool enJeu()
 
     if (detection_distance_gauche() <= DISTANCE_DETECTION_GAUCHE)
     {
-        stop();
+        stop(750);
         return 1;
     }
 
