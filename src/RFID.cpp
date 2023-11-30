@@ -1,4 +1,16 @@
-
+/********
+Fichier: RFID.cpp
+Auteurs: 
+Alexis Lechasseur
+Charles Poulin-Bergevin
+Raphael Richard
+Vincent Taylor
+Xavier Robidoux
+Anis Bouabid
+Jordan Klaus Kodjio Kousso 
+Date: 30 Novembre 2023
+Description: fontion pour le RFID
+********/
 #include <LibRobus.h> // Essentielle pour utiliser RobUS
 
 char crecu, j, incoming=0;

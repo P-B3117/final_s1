@@ -1,3 +1,16 @@
+/********
+Fichier: suiveur.cpp
+Auteurs: 
+Alexis Lechasseur
+Charles Poulin-Bergevin
+Raphael Richard
+Vincent Taylor
+Xavier Robidoux
+Anis Bouabid
+Jordan Klaus Kodjio Kousso 
+Date: 30 Novembre 2023
+Description: fonction suiveur de ligne
+********/
 #include <Arduino.h>
 #include <libRobus.h>
 #include "suiveur.h"
