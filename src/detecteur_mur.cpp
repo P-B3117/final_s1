@@ -9,8 +9,9 @@ float detection_distance_droite (void){
 }
 
 float detection_distance_gauche (void){
-    float tension_bas=ROBUS_ReadIR(0);
+    float tension_bas=ROBUS_ReadIR(1);
     float inverse_bas=1/tension_bas;
     float distance_bas=inverse_bas*6839.3-6.3;
+    Serial.println(distance_bas);
     return distance_bas;
 }

@@ -54,7 +54,7 @@ void suiveur_ligne(float vitesse){
        
     }
     else if(extreme_gauche==0 && gauche!=0){
-        while(extreme_gauche==0 && gauche!=0){
+       
             extreme_gauche=digitalRead(53);
             gauche=digitalRead(44);
             moyen_gauche=digitalRead(40);
@@ -67,9 +67,9 @@ void suiveur_ligne(float vitesse){
             //Serial.println("rotation gauche");
         }
         
-    }
+    
     else if(centre_droite==0||centre_gauche==0){
-        while(centre_droite==0||centre_gauche==0){
+       
             extreme_gauche=digitalRead(53);
             gauche=digitalRead(44);
             moyen_gauche=digitalRead(40);
@@ -82,9 +82,9 @@ void suiveur_ligne(float vitesse){
              //Serial.println("tout droit");
          }
         
-     }
+     
     else if(moyen_droite==0||droite==0){
-         while(moyen_droite==0||droite==0){
+       
             extreme_gauche=digitalRead(53);
             gauche=digitalRead(44);
             moyen_gauche=digitalRead(40);
@@ -97,9 +97,9 @@ void suiveur_ligne(float vitesse){
             //Serial.println("tourne gauche");
          }
        
-    }
+    
      else if((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
-          while((moyen_gauche==0||gauche==0) && centre_gauche!=0 && extreme_gauche!=0){
+         
                 extreme_gauche=digitalRead(53);
                 gauche=digitalRead(44);
                 moyen_gauche=digitalRead(40);
@@ -112,7 +112,6 @@ void suiveur_ligne(float vitesse){
                 //Serial.println("tourne droite");
           }
       
-     }
     
     
 }
